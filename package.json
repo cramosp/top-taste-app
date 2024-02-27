@@ -11,9 +11,11 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.15.10",
+    "@mui/material-nextjs": "^5.15.11",
     "next": "14.1.0",
     "prettier": "^3.2.5",
     "react": "^18",
