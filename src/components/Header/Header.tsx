@@ -14,8 +14,14 @@ import MenuItem from '@mui/material/MenuItem';
 import Image from 'next/image';
 import { useMediaQuery } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
+import { StyledLink } from '../StyledLink';
 
 const pages = ['Home', 'Temptations', 'Favorites'] as const;
+const pagePaths = {
+  Home: '/',
+  Temptations: '/restaurants',
+  Favorites: '/my-restaurants',
+};
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -99,7 +105,13 @@ export const Header: FC = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <StyledLink
+                    href={pagePaths[page]}
+                    passHref
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
+                    <Typography textAlign="center">{page}</Typography>
+                  </StyledLink>
                 </MenuItem>
               ))}
             </Menu>
@@ -113,17 +125,19 @@ export const Header: FC = () => {
             }}
           >
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  color: 'white',
-                  display: 'block',
-                }}
-              >
-                {page}
-              </Button>
+              <StyledLink key={page} href={pagePaths[page]} passHref>
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    my: 2,
+                    color: 'white',
+                    display: 'block',
+                  }}
+                >
+                  {page}
+                </Button>
+              </StyledLink>
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
