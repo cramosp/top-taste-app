@@ -15,7 +15,8 @@ import Image from 'next/image';
 import { useMediaQuery } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 
-const pages = ['Home', 'Temptations', 'My favorites'];
+const pages = ['Home', 'Temptations', 'Favorites'] as const;
+
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export const Header: FC = () => {
@@ -44,16 +45,22 @@ export const Header: FC = () => {
   const isSmallScreen = useMediaQuery('(max-width: 900px)');
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#082032' }}>
+    <AppBar
+      position="static"
+      sx={{
+        backgroundColor: '#082032',
+        height: '80px',
+        justifyContent: 'center',
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {!isSmallScreen && (
             <Image
               src="/toptastelogo.png"
               alt="Top taste logo"
-              width="80"
-              height="80"
-              style={{ padding: '5px' }}
+              width="65"
+              height="65"
             />
           )}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -68,7 +75,6 @@ export const Header: FC = () => {
               <Image
                 src="/burgericon.png"
                 alt="Burger menu icon"
-                className="toptastelogo"
                 width="30"
                 height="30"
               />
@@ -98,12 +104,23 @@ export const Header: FC = () => {
               ))}
             </Menu>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', md: 'flex' },
+              justifyContent: 'center',
+              gap: '150px',
+            }}
+          >
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{
+                  my: 2,
+                  color: 'white',
+                  display: 'block',
+                }}
               >
                 {page}
               </Button>
