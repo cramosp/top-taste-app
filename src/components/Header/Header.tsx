@@ -105,11 +105,7 @@ export const Header: FC = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <StyledLink
-                    href={pagePaths[page]}
-                    passHref
-                    style={{ textDecoration: 'none', color: 'inherit' }}
-                  >
+                  <StyledLink href={pagePaths[page]} passHref>
                     <Typography textAlign="center">{page}</Typography>
                   </StyledLink>
                 </MenuItem>
