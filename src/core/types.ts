@@ -1,3 +1,5 @@
+import { User as NextAuthUser } from 'next-auth';
+
 export interface Review {
   name: string;
   date: string;
@@ -43,4 +45,8 @@ export interface User {
   email: string;
   password: string;
   favoriteRestaurants: Restaurant[];
+}
+
+export interface AuthUser extends NextAuthUser {
+  accessToken: string;
 }

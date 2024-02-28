@@ -1,19 +1,23 @@
 'use client';
 
-import React, { FC } from 'react';
+import { APP_ROUTES } from '@/core/routes';
+import { AccountCircle } from '@mui/icons-material';
+import { Avatar, useMediaQuery } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
+import Container from '@mui/material/Container';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import { deepOrange } from '@mui/material/colors';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { useMediaQuery } from '@mui/material';
-import { AccountCircle } from '@mui/icons-material';
+import { useRouter } from 'next/navigation';
+import React, { FC, MouseEventHandler } from 'react';
 import { StyledLink } from '../StyledLink';
 
 const pages = ['Home', 'Temptations', 'Favorites'] as const;
@@ -23,8 +27,6 @@ const pagePaths = {
   Favorites: '/my-restaurants',
 };
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
 export const Header: FC = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -32,6 +34,8 @@ export const Header: FC = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
+  const { data: session } = useSession();
+  const router = useRouter();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -39,16 +43,24 @@ export const Header: FC = () => {
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const handleLogin: MouseEventHandler = async () => {
+    router.push(APP_ROUTES.LOGIN);
+  };
+  const handleLogout: MouseEventHandler = async () => {
+    handleCloseUserMenu();
+    await signOut({ redirect: false });
+    router.push(APP_ROUTES.ROOT);
+  };
 
   const isSmallScreen = useMediaQuery('(max-width: 900px)');
+  const userName = session?.user?.name;
+  const userInitial = userName && `${userName.split(' ')[0][0]}`;
 
   return (
     <AppBar
@@ -69,6 +81,7 @@ export const Header: FC = () => {
               height="65"
             />
           )}
+
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -139,7 +152,13 @@ export const Header: FC = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <AccountCircle sx={{ color: 'white', fontSize: 50 }} />
+                {!session ? (
+                  <AccountCircle sx={{ color: 'white', fontSize: 50 }} />
+                ) : (
+                  <Avatar sx={{ bgcolor: deepOrange[500] }}>
+                    {userInitial}
+                  </Avatar>
+                )}
               </IconButton>
             </Tooltip>
             <Menu
@@ -158,11 +177,18 @@ export const Header: FC = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {!session ? (
+                <MenuItem onClick={handleLogin}>
+                  <Typography textAlign="center">Login</Typography>
                 </MenuItem>
-              ))}
+              ) : (
+                <>
+                  {userName}
+                  <MenuItem onClick={handleLogout}>
+                    <Typography textAlign="center">Logout</Typography>
+                  </MenuItem>
+                </>
+              )}
             </Menu>
           </Box>
         </Toolbar>
