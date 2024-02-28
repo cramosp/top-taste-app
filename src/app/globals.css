@@ -1,27 +1,8 @@
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 8, 32, 50;
-  --background-end-rgb: 8, 32, 50;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 8, 32, 50;
-    --background-end-rgb: 8, 32, 50;
-  }
-}
-
 body {
   margin: 0;
   padding: 0;
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: white;
+  background-color: #0a1f32;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -32,10 +13,4 @@ main {
   display: flex;
   flex-direction: column;
   color: white;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
 }
