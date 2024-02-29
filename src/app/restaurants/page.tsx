@@ -1,5 +1,5 @@
 import { Restaurant } from '@/core/types';
-import { StyledCard } from '@/components/StyledCard';
+import { RestaurantCard } from '@/components/RestaurantCard';
 import { API_ROUTES } from '@/core/routes';
 import { Grid } from '@mui/material';
 import { Container } from '@mui/system';
@@ -32,7 +32,7 @@ export default async function Restaurants() {
         <Grid container spacing={8}>
           {restaurants.map((restaurant) => (
             <Grid key={restaurant._id} item xs={12} sm={6} md={4}>
-              <StyledCard restaurant={restaurant} />
+              <RestaurantCard restaurant={restaurant} />
             </Grid>
           ))}
         </Grid>

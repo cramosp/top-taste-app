@@ -1,1 +1,0 @@
-export { StyledCard } from './StyledCard';
