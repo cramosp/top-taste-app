@@ -1,5 +1,6 @@
 'use client';
 
+import { UserContextProvider } from '@/context/UserContext';
 import { globalStyles, theme } from '@/core/theme';
 import { ThemeProvider } from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
@@ -12,7 +13,9 @@ export const AppProviders: FC<PropsWithChildren> = ({ children }) => {
       {globalStyles}
       <AppRouterCacheProvider>
         <ThemeProvider theme={theme}>
-          <SessionProvider>{children}</SessionProvider>
+          <SessionProvider>
+            <UserContextProvider>{children}</UserContextProvider>
+          </SessionProvider>
         </ThemeProvider>
       </AppRouterCacheProvider>
     </>

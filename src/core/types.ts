@@ -1,4 +1,4 @@
-import { User as NextAuthUser } from 'next-auth';
+import { User as NextAuthUser, Session } from 'next-auth';
 
 export interface Review {
   name: string;
@@ -22,7 +22,7 @@ export enum CuisineType {
 }
 
 export interface Restaurant {
-  _id: number;
+  _id: string;
   name: string;
   neighborhood: Neighborhood;
   photograph: string;
@@ -41,6 +41,7 @@ export interface Restaurant {
 }
 
 export interface User {
+  _id: string;
   name: string;
   email: string;
   password: string;
@@ -49,4 +50,8 @@ export interface User {
 
 export interface AuthUser extends NextAuthUser {
   accessToken: string;
+}
+
+export interface UserSession extends Session {
+  user: AuthUser;
 }
