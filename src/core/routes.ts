@@ -3,6 +3,7 @@ export const API_ROUTES = {
   SIGNUP: '/auth/signup',
   RESTAURANTS: '/restaurants',
   MY_RESTAURANTS: '/user/restaurants',
+  USER: '/user',
 };
 
 export const APP_ROUTES = {
