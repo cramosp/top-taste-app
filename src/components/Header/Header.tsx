@@ -205,7 +205,7 @@ export const Header: FC = () => {
                 </MenuItem>
               ) : (
                 <>
-                  <Box>{userName}</Box>
+                  <Box sx={{padding: '10px 15px', fontWeight: 'bold'}}>{userName}</Box>
                   <MenuItem onClick={handleLogout}>
                     <Typography textAlign="center">Logout</Typography>
                   </MenuItem>
