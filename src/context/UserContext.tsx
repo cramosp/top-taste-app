@@ -26,7 +26,7 @@ export const UserContextProvider = ({
   const { data: session } = useSession();
   const [user, setUser] = useState<User>();
   const [error, setError] = useState<Error>();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const updateUser = (user: User) => {
     setUser(user);
