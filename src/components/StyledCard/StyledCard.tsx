@@ -1,20 +1,19 @@
 'use client';
 
-import React, { FC } from 'react';
+import { APP_ROUTES } from '@/core/routes';
+import { Restaurant } from '@/core/types';
+import { ArrowCircleRight, CalendarMonth, Reviews } from '@mui/icons-material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Box, Button, Divider, Modal, Stack, Tooltip } from '@mui/material';
 import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Restaurant } from '@/core/types';
-import { Box, Button, Divider, Modal, Stack, Tooltip } from '@mui/material';
-import { CalendarMonth, Reviews } from '@mui/icons-material';
+import React, { FC } from 'react';
 import { StyledLink } from '../StyledLink';
-import { APP_ROUTES } from '@/core/routes';
 
 const style = {
   position: 'absolute' as const,
@@ -46,7 +45,7 @@ export const StyledCard: FC<StyledCardProps> = ({ restaurant }) => {
           <Tooltip title="Check details" arrow>
             <StyledLink href={`${APP_ROUTES.RESTAURANTS}/${restaurant._id}`}>
               <IconButton aria-label="check details">
-                <MoreVertIcon />
+                <ArrowCircleRight sx={{ color: 'white' }} />
               </IconButton>
             </StyledLink>
           </Tooltip>
