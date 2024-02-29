@@ -2,8 +2,7 @@
 
 import { APP_ROUTES } from '@/core/routes';
 import { Restaurant } from '@/core/types';
-import { CalendarMonth, Reviews } from '@mui/icons-material';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { ArrowCircleRight, CalendarMonth, Reviews } from '@mui/icons-material';
 import { Box, Button, Divider, Modal, Stack, Tooltip } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -32,7 +31,7 @@ export const RestaurantCard: FC<RestaurantCardProps> = ({ restaurant }) => {
           <Tooltip title="Check details" arrow>
             <StyledLink href={`${APP_ROUTES.RESTAURANTS}/${restaurant._id}`}>
               <IconButton aria-label="check details">
-                <MoreVertIcon />
+                <ArrowCircleRight sx={{color: 'white'}}/>
               </IconButton>
             </StyledLink>
           </Tooltip>
