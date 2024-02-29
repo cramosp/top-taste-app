@@ -133,21 +133,41 @@ export const Header: FC = () => {
               gap: '150px',
             }}
           >
-            {pages.map((page) => (
-              <StyledLink key={page} href={pagePaths[page]} passHref>
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    my: 2,
-                    color: 'white',
-                    display: 'block',
-                  }}
-                >
-                  {page}
-                </Button>
-              </StyledLink>
-            ))}
+            {pages.map((page) => {
+              if (page === 'Favorites' && !session) {
+                return (
+                  <StyledLink key={page} href="/login" passHref>
+                    <Button
+                      key={page}
+                      onClick={handleCloseNavMenu}
+                      sx={{
+                        my: 2,
+                        color: 'white',
+                        display: 'block',
+                      }}
+                    >
+                      Favorites
+                    </Button>
+                  </StyledLink>
+                );
+              }
+
+              return (
+                <StyledLink key={page} href={pagePaths[page]} passHref>
+                  <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      my: 2,
+                      color: 'white',
+                      display: 'block',
+                    }}
+                  >
+                    {page}
+                  </Button>
+                </StyledLink>
+              );
+            })}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
