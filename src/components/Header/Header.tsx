@@ -14,11 +14,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { deepOrange } from '@mui/material/colors';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { FC, MouseEventHandler } from 'react';
 import { StyledLink } from '../StyledLink';
+import { useUserContext } from '@/context/UserContext';
 
 const pages = ['Home', 'Temptations', 'Favorites'] as const;
 const pagePaths = {
@@ -34,7 +35,7 @@ export const Header: FC = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
-  const { data: session } = useSession();
+  const { isAuthenticated, user, clearUser } = useUserContext();
   const router = useRouter();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -54,12 +55,13 @@ export const Header: FC = () => {
   };
   const handleLogout: MouseEventHandler = async () => {
     handleCloseUserMenu();
+    clearUser();
     await signOut({ redirect: false });
     router.push(APP_ROUTES.ROOT);
   };
 
   const isSmallScreen = useMediaQuery('(max-width: 900px)');
-  const userName = session?.user?.name;
+  const userName = user?.name;
   const userInitial = userName && `${userName.split(' ')[0][0]}`;
 
   return (
@@ -134,7 +136,7 @@ export const Header: FC = () => {
             }}
           >
             {pages.map((page) => {
-              if (page === 'Favorites' && !session) {
+              if (page === 'Favorites' && !isAuthenticated) {
                 return (
                   <StyledLink key={page} href="/login" passHref>
                     <Button
@@ -172,7 +174,7 @@ export const Header: FC = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {!session ? (
+                {!isAuthenticated ? (
                   <AccountCircle sx={{ color: 'white', fontSize: 50 }} />
                 ) : (
                   <Avatar sx={{ bgcolor: deepOrange[500] }}>
@@ -197,13 +199,13 @@ export const Header: FC = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {!session ? (
+              {!isAuthenticated ? (
                 <MenuItem onClick={handleLogin}>
                   <Typography textAlign="center">Login</Typography>
                 </MenuItem>
               ) : (
                 <>
-                  {userName}
+                  <Box>{userName}</Box>
                   <MenuItem onClick={handleLogout}>
                     <Typography textAlign="center">Logout</Typography>
                   </MenuItem>
